@@ -1,25 +1,29 @@
-const express = require("express");
-const app = express();
-const port = 3000;
-const mysql = require("mysql2");
-const bodyParser = require("body-parser");
-const bcrypt = require("bcryptjs");
-const { check, validationResult, cookie } = require("express-validator");
-var jwt = require("jsonwebtoken");
-const cookieParser = require("cookie-parser");
+// import express from "express";
+// import cors from "cors";
+// import cookieParser from "cookie-parser";
+// import { db } from "./db.js";
+// import authRoutes from "./routes/auth.js";
+// // require("dotenv").config();
+// const app = express();
+// const port = 8080;
 
-const connection = mysql.createConnection({
-  host: "db.cshack.site",
-  port: "3306",
-  user: "group11",
-  password: "204238240",
-  database: "MariaDB",
-});
+// db.connect(() => {
+//   console.log("Database is connected");
+// });
 
-connection.connect(() => {
-  console.log("Database is connected");
-});
-app.listen(port, () => console.log(" app listening on port 3000!"));
-app.get("/", (req, res) => {
-  res.send("hello world!");
-});
+// app.use(
+//   cors({
+//     origin: ["http://localhost:3000", "http://10.4.31.197:5173/"],
+//     credentials: true,
+//   })
+// );
+
+// app.use(express.json());
+// app.use(cookieParser());
+
+// app.use("/back/auth", authRoutes);
+
+// app.listen(port, () => {
+//   console.log(`Example app listening on port ${port}`);
+// });
+console.log("hi");
