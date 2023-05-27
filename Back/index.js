@@ -1,29 +1,25 @@
-// import express from "express";
-// import cors from "cors";
-// import cookieParser from "cookie-parser";
-// import { db } from "./db.js";
-// import authRoutes from "./routes/auth.js";
-// // require("dotenv").config();
-// const app = express();
-// const port = 8080;
+import express from "express";
+import cors from "cors";
+import authRoutes from "./routes/auth.js";
 
-// db.connect(() => {
-//   console.log("Database is connected");
-// });
+const PORT = 8000;
+const app = express();
 
-// app.use(
-//   cors({
-//     origin: ["http://localhost:3000", "http://10.4.31.197:5173/"],
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin: ["http://localhost:5173"],
+    credentials: true,
+  })
+);
 
-// app.use(express.json());
-// app.use(cookieParser());
+app.use(express.json());
 
-// app.use("/back/auth", authRoutes);
+app.get("/", (req, res) => {
+  res.send("hi");
+});
 
-// app.listen(port, () => {
-//   console.log(`Example app listening on port ${port}`);
-// });
-console.log("hi");
+app.use("/api/auth", authRoutes);
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
