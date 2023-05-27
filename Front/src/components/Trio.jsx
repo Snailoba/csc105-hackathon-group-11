@@ -20,7 +20,6 @@ const trioCategory = {
 const left = {
     width: "100%",
     display: "flex",
-    flexDirection: "column",
     justifyContent: "left",
     textAlign: "left"
 }
@@ -51,7 +50,7 @@ const conSimor = {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    paddingLeft: "100px"
+    transform: "translateX(45%)",
 }
 const simorButton = {
     backgroundColor: "#858AE3",
