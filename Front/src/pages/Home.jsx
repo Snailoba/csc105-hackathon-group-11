@@ -50,21 +50,12 @@ const conHome = {
 function Home() {
   const navigate = useNavigate();
 
-  // function handleClickRegister() {
-  //   navigate("/register");
-  // }
+  function handleClickRegister() {
+    navigate("/register");
+  }
   function handleClickLogin() {
     navigate("/login");
   }
-  // function handleClickSubmit() {
-  //   navigate("/submit");
-  // }
-  // function handleClickCategory() {
-  //   navigate("/category");
-  // }
-  // function handleClickDetails() {
-  //   navigate("/details");
-  // }
   return (
     <>
       <Box>

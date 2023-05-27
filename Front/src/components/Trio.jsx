@@ -75,9 +75,10 @@ const simorButton = {
 
 function Trio() {
     const navigate = useNavigate();
-    // function handleClickCategory() {
-    //     navigate("/category");
-    // }
+
+    function handleClickCategory() {
+        navigate("/category");
+    }
   return (
     <Box sx={trio}>
         <Box sx={trioCategory}>
@@ -89,7 +90,7 @@ function Trio() {
                 <CardSmall />
                 <CardSmall />
                 <Box sx={conSimor}>
-                    <Button sx={simorButton}>See more</Button>
+                    <Button sx={simorButton} onClick={handleClickCategory}>See more</Button>
                 </Box>
             </Box>
         </Box>
