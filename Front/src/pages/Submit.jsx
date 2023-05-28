@@ -65,15 +65,35 @@ const type = {
     padding: "10px 10px",
     fontSize: "20px",
     marginBottom: "10px",
-  };
-  const inputTag = {
+};
+const inputTag = {
     fontFamily: "Inika",
     color: "#97DFFC",
     textAlign: "left",
     fontSize: "25px",
     marginTop: "10px",
     marginBottom: "10px",
-  };
+};
+const submitButton = {
+  backgroundColor: "#4E148C",
+  fontFamily: "Inika",
+  fontSize: "20px",
+  height: "40%",
+  width: "20%",
+  color: "#97DFFC",
+  marginTop: "20px",
+
+  ":hover": {
+      backgroundColor: "#858AE3",
+      color: "black",
+  },
+  ":focus": {
+      outline: "none",
+  },
+  "@media screen and (max-width: 1100px)": {
+      fontSize: "12px",
+  },
+};
 
 function Submit() {
     const [recipeName, setRecipeName] = useState("");
@@ -85,6 +105,9 @@ function Submit() {
     const navigate = useNavigate();
     function handleClickHome() {
       navigate("/")
+    }
+    function handleClickRecipes() {
+      navigate("/recipes")
     }
     return (
         <>
@@ -139,6 +162,9 @@ function Submit() {
                     }}
                     />
                 </Box>
+                <Button sx={submitButton} onClick={handleClickRecipes}>
+                  Submit recipe
+                </Button>
             </Box>
           </Box>{" "}
         </>
