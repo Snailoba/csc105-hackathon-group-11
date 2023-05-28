@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Typography, Box, Button } from "@mui/material";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../Context/AuthContext";
 const conLeft = {
@@ -105,8 +105,8 @@ function LeftSide() {
 
   const handleDelete = async () =>{
     try{
-    await axios.delete(`http://localhost:8000/api/posts/${postId}`, {withCredentials:true})
-        Navigate("/");
+    await axios.delete(`http://localhost:8000/api/posts/${postId}`,{withCredentials:true})
+        // Navigate("/");
       } catch (err){
         console.log(err);
       }
@@ -138,8 +138,11 @@ function LeftSide() {
             </Box>
             <img src={`../upload/${post.img}`} style={imag} />
             <Box sx={bottom}>
-                <Button sx={bottomButton}>Edit recipe</Button>
+            {currentUser.username === post.username && (<div className='edit'>
+                <Link to={`/Submit?edit=2`} state={post} sx={bottomButton}>Edit recipe</Link>
                 <Button sx={bottomButton} onClick={handleDelete}>Delete recipe</Button>
+                </div>
+            )}
             </Box>
         </Box>
       )

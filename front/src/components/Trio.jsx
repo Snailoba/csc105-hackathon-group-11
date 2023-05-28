@@ -166,7 +166,7 @@ const Trio = ({genre}) => {
                 <Box sx={detail}>
                 <Link className='link' to={`/post/${post.id}`}>
                     <Box sx={titl}>{post.title}</Box>
-                    <Box sx={desc}>By {post.username}</Box>
+                    <Box sx={desc}></Box>
                 </Link>
                 </Box>
             </Box>
