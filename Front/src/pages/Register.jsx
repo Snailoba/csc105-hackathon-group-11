@@ -11,9 +11,10 @@ const container = {
   alignItems: "center",
   justifyContent: "center",
   gap: 3,
-  transform: "translateY(15%)",
+  transform: "translateY(15%)"
 };
-const logo = {};
+const logo = {
+};
 const logoText = {
   top: "50%",
   left: "50%",
@@ -23,24 +24,24 @@ const logoText = {
   fontSize: "85px",
 };
 const submitButton = {
-  backgroundColor: "#4E148C",
-  fontFamily: "Inika",
-  fontSize: "20px",
-  height: "40%",
-  width: "40%",
-  color: "#97DFFC",
-  right: 0,
+    backgroundColor: "#4E148C",
+    fontFamily: "Inika",
+    fontSize: "20px",
+    height: "40%",
+    width: "40%",
+    color: "#97DFFC",
+    right: 0,
 
-  ":hover": {
-    backgroundColor: "#858AE3",
-    color: "black",
-  },
-  ":focus": {
-    outline: "none",
-  },
-  "@media screen and (max-width: 1100px)": {
-    fontSize: "12px",
-  },
+    ":hover": {
+        backgroundColor: "#858AE3",
+        color: "black",
+    },
+    ":focus": {
+        outline: "none",
+    },
+    "@media screen and (max-width: 1100px)": {
+        fontSize: "12px",
+    },
 };
 const loginButton = {
   backgroundColor: "#4E148C",
@@ -96,28 +97,29 @@ function Register() {
   //   return password === confirmPassword;
   // };
 
-  const [inputs, setInputs] = useState({
-    username: "",
-    email: "",
-    password: "",
+  const [inputs,setInputs] = useState({
+    username:"",
+    email:"",
+    password:"",
   });
-  const [err, setError] = useState(null);
+  const [err,setError] = useState(null);
 
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-  const handleSumbit = async (e) => {
+  const handleChange = e =>{
+    setInputs(prev=>({...prev, [e.target.name]: e.target.value}))
+  }
+  const handleSumbit = async e =>{
     e.preventDefault();
-    try {
-      await axios.post("http://localhost:8000/api/auth/register", inputs);
+    try{
+       await axios.post("http://localhost:8000/api/auth/register", inputs);
       navigate("/login");
-    } catch (err) {
+    }catch(err){
       setError(err.response.data);
     }
   };
 
+  
   function handleClickLogin() {
     navigate("/login");
   }
@@ -125,9 +127,9 @@ function Register() {
     <Box>
       <Box sx={container}>
         <Box>
-          <Box sx={logo}>
-            <Box sx={logoText}>BLU's recipe</Box>
-          </Box>
+            <Box sx={logo}>
+                <Box sx={logoText}>BLU's recipe</Box>
+            </Box>
         </Box>
         <Box sx={inputContainer}>
           <label htmlFor="texfil" style={inputTag}>

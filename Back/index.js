@@ -3,6 +3,8 @@ import cors from "cors";
 import authRoutes from "./routes/auth.js";
 import postsRoutes from "./routes/posts.js";
 import multer from "multer";
+import bodyparser from "body-parser";
+import cookieparser from "cookie-parser";
 const PORT = 8000;
 const app = express();
 
@@ -14,6 +16,8 @@ app.use(
 );
 
 app.use(express.json());
+app.use(bodyparser.json());
+app.use(cookieparser());
 
 // stroage import from website by clicking add
 const storage = multer.diskStorage({

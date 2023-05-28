@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Typography, Stack, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
-import { AuthContext } from "../Context/AuthContext";
+import { AuthContext } from '../Context/AuthContext';
 // import Cookies from "js-cookies";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -56,7 +56,7 @@ const conHome = {
 
 function Home() {
   const navigate = useNavigate();
-  const { currentUser, logout } = useContext(AuthContext);
+  const { currentUser,logout } = useContext(AuthContext);
 
   // function handleClickRegister() {
   //   navigate("/register");
@@ -78,16 +78,20 @@ function Home() {
       <Box>
         <Box sx={menuContainer}>
           <Typography sx={title}>BLU's</Typography>
-
-          {currentUser ? (
-            <Typography sx={menuButton} onClick={logout}>
-              {currentUser?.username} &nbsp; Logout
-            </Typography>
-          ) : (
-            <Typography sx={menuButton} onClick={handleClickLogin}>
-              {currentUser?.username} &nbsp; Login
-            </Typography>
-          )}
+          
+          {currentUser ? <Typography sx={menuButton} onClick={logout}>
+          {currentUser?.username} &nbsp;
+          
+            Logout
+          </Typography>
+          :
+          <Typography sx={menuButton} onClick={handleClickLogin}>
+          {currentUser?.username} &nbsp;
+          
+            Login
+          </Typography>
+          }
+          
         </Box>
         <Box sx={conHome}>
           <Header head={"Blu's weekly top recipes"} />

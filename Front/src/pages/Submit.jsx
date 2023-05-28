@@ -176,6 +176,7 @@ function Submit() {
       console.log(err);
     }
     console.log(title);
+    navigate("/");
   };
   const [selectedValue, setSelectedValue] = React.useState("a");
 
@@ -258,7 +259,7 @@ function Submit() {
             />
           </Box>
         </Box>
-        <Button sx={createButton} onClick={handleClickRecipes}>
+        <Button sx={createButton} onClick={handleClick}>
           Create your recipe
         </Button>
       </Box>{" "}
