@@ -179,7 +179,7 @@ const ColdFood = ({ genre }) => {
               <Box sx={detail}>
                 <Link className="link" to={`/post/${post.id}`}>
                   <Box sx={titl}>{post.title}</Box>
-                  <Box sx={desc}>By {currentUser?.username}</Box>
+                  <Box sx={desc}>{currentUser?.username}</Box>
                 </Link>
               </Box>
             </Box>

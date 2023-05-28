@@ -94,7 +94,7 @@ function LeftSide() {
     const [post,setPost] =useState([])
 
   const location = useLocation();
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
   
 
   const postId = location.pathname.split("/")[2];
@@ -105,7 +105,7 @@ function LeftSide() {
   const handleDelete = async () =>{
     try{
     await axios.delete(`http://localhost:8000/api/posts/${postId}`,{withCredentials:true})
-        // Navigate("/");
+        navigate("/");
       } catch (err){
         console.log(err);
       }
