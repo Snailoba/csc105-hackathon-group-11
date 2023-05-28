@@ -1,7 +1,56 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Typography, Box, Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CardSmall from "./CardSmall"
+import { AuthContext } from '../Context/AuthContext';
+import axios from "axios";
+
+const conCard = {
+    backgroundColor: "#97DFFC",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    padding: "10px",
+    width: "25%",
+    height: "90%",
+    borderRadius: "10px",
+    overflow: "hidden",
+    marginRight: "10px"
+}
+const imag = {
+    width: "45%",
+    height: "100%",
+    border: "3px solid #32174d",
+    borderRadius: "10px",
+    objectFit: "cover",
+    marginRight: "10px"
+}
+const detail = {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    width: "45%",
+    
+}
+const titl = {
+    fontFamily: "Inika",
+    fontSize: "20px",
+    color: "black",
+
+    "@media screen and (max-width: 1100px)": {
+        fontSize: "15px",
+    },
+}
+const desc = {
+    wordWrap: "break-word",
+    fontFamily: "Inika",
+    fontSize: "15px",
+    color: "black",
+
+    "@media screen and (max-width: 1100px)": {
+        fontSize: "15px",
+    },
+}
 
 const trio = {
     display: "flex",
@@ -58,7 +107,7 @@ const conSimor = {
 const simorButton = {
     backgroundColor: "#858AE3",
     fontFamily: "Inika",
-    fontSize: "20px",
+    fontSize: "15px",
     height: "40%",
     width: "100%",
     color: "black",
@@ -77,12 +126,31 @@ const simorButton = {
     },
 };
 
-function Trio() {
+const Trio = ({genre}) => {
     const navigate = useNavigate();
-
-    function handleClickCategory() {
-        navigate("/category");
+    const { currentUser } = useContext(AuthContext);
+    // function handleClickCategory() {
+    //     navigate("/category");
+    // }
+    const [posts,setPosts] =useState([])
+    
+    console.log(location);
+    useEffect(() =>{
+      const fetchData = async () =>{
+        try{
+          const res = await axios.get(`http://localhost:8000/api/posts/`)
+        //   const res = await axios.get(`http://localhost:8080/api/posts/?cat=${cat}`)
+          console.log(res.data);
+          const filteredPosts = res.data.filter(post => post.genre === "Seafood");
+          setPosts(filteredPosts);
+        } catch (err){
+            console.log(err);
+        }
+        
     }
+    fetchData();
+    console.log(posts.username);
+    }, [genre]);
   return (
     <Box sx={trio}>
         <Box sx={trioCategory}>
@@ -90,11 +158,25 @@ function Trio() {
                 <Typography sx={categoryName}>Seafood</Typography>
             </Box>
             <Box sx={conCategory}>
-                <CardSmall />
-                <CardSmall />
-                <CardSmall />
+            {/* start smallCard */}
+            
+   { posts.map(post=> (
+            <Box sx={conCard} className='post' key={post.id}>
+                <img src={`../upload/${post.img}`} alt="" style={imag} />
+                <Box sx={detail}>
+                <Link className='link' to={`/post/${post.id}`}>
+                    <Box sx={titl}>{post.title}</Box>
+                    <Box sx={desc}>By {post.username}</Box>
+                </Link>
+                </Box>
+            </Box>
+
+   ))
+    }
+    {/* end smallCard */}
+                
                 <Box sx={conSimor}>
-                    <Button sx={simorButton} onClick={handleClickCategory}>See more</Button>
+                    <Button sx={simorButton}>See more</Button>
                 </Box>
             </Box>
         </Box>

@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Typography, Box, Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { AuthContext } from "../Context/AuthContext";
 const conLeft = {
     display: "flex",
     flexDirection: "column",
@@ -91,18 +92,54 @@ const imag = {
 }
 
 function LeftSide() {
+    const [post,setPost] =useState([])
+
+  const location = useLocation();
+  const Navigate = useNavigate();
+  
+
+  const postId = location.pathname.split("/")[2];
+  console.log(postId);
+  const {currentUser} = useContext(AuthContext);
+  console.log(location);
+
+  const handleDelete = async () =>{
+    try{
+    await axios.delete(`http://localhost:8000/api/posts/${postId}`, {withCredentials:true})
+        Navigate("/");
+      } catch (err){
+        console.log(err);
+      }
+  }
+  
+  useEffect(() =>{
+    const fetchData = async () =>{
+      try{
+        const res = await axios.get(`http://localhost:8000/api/posts/${postId}`)
+        setPost(res.data);
+      } catch (err){
+        console.log(err);
+      }
+      
+    }
+      fetchData();
+  }, [postId]);
+    console.log(post.username);
+
+    
+   
     return (
         <Box sx={conLeft}>
             <Box sx={top}>
-                <Typography sx={recipeDeta}>Recipe 1</Typography>
+                <Typography sx={recipeDeta}>{post.title}</Typography>
                 <Box sx={recipeOwner}>
-                    <Typography sx={tag}>By Username</Typography>
+                    <Typography sx={tag}>By {post.username}</Typography>
                 </Box>
             </Box>
-            <img src="assets/sample.jpg" style={imag} />
+            <img src={`../upload/${post.img}`} style={imag} />
             <Box sx={bottom}>
                 <Button sx={bottomButton}>Edit recipe</Button>
-                <Button sx={bottomButton}>Delete recipe</Button>
+                <Button sx={bottomButton} onClick={handleDelete}>Delete recipe</Button>
             </Box>
         </Box>
       )

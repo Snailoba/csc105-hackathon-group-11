@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Typography, Stack, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
+import { AuthContext } from '../Context/AuthContext';
 // import Cookies from "js-cookies";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Trio from "../components/Trio";
-
+import ColdFood from "../components/ColdFood";
+import RelaxingFood from "../components/RelaxingFood";
 const menuContainer = {
   background: "#613DC1",
   position: "absolute",
@@ -54,27 +56,48 @@ const conHome = {
 
 function Home() {
   const navigate = useNavigate();
+  const { currentUser,logout } = useContext(AuthContext);
 
-  function handleClickRegister() {
-    navigate("/register");
-  }
+  // function handleClickRegister() {
+  //   navigate("/register");
+  // }
   function handleClickLogin() {
     navigate("/login");
   }
+  // function handleClickSubmit() {
+  //   navigate("/submit");
+  // }
+  // function handleClickCategory() {
+  //   navigate("/category");
+  // }
+  // function handleClickDetails() {
+  //   navigate("/details");
+  // }
   return (
     <>
       <Box>
         <Box sx={menuContainer}>
           <Typography sx={title}>BLU's</Typography>
-          <Typography sx={menuButton} onClick={handleClickLogin}>
-            Log in
+          
+          {currentUser ? <Typography sx={menuButton} onClick={logout}>
+          {currentUser?.username} &nbsp;
+          
+            Logout
           </Typography>
+          :
+          <Typography sx={menuButton} onClick={handleClickLogin}>
+          {currentUser?.username} &nbsp;
+          
+            Login
+          </Typography>
+          }
+          
         </Box>
         <Box sx={conHome}>
           <Header head={"Blu's weekly top recipes"} />
           <Trio />
-          <Trio />
-          <Trio />
+          <ColdFood />
+          <RelaxingFood />
           <Footer />
         </Box>
       </Box>{" "}

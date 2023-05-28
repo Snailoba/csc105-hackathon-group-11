@@ -5,7 +5,7 @@ const header = {
     display: "flex",
     alignItems: "center",
     justifyContent: "left",
-    width: "100%",
+    width: "100vw",
 };
 const headerText = {  
     fontFamily: "inika",

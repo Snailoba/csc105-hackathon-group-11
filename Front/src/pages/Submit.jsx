@@ -1,121 +1,165 @@
 import React, { useEffect, useState } from "react";
-import { Typography, Box, Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Typography, Box, Button, colors } from "@mui/material";
+import { useLocation, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import Header from "../components/Header"
 import Dropdead from "../components/Dropdead";
 import "./Stubborn.css";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import axios from "axios";
+import { AuthContext } from '../Context/AuthContext';
 
 const menuContainer = {
-    background: "#613DC1",
-    position: "absolute",
-    top: 0,
-    left: 0,
-    height: "85px",
-    width: "100%",
-    display: "flex",
-    alignItems: "center",
-  };
+  background: "#613DC1",
+  position: "absolute",
+  top: 0,
+  left: 0,
+  height: "85px",
+  width: "100%",
+  display: "flex",
+  alignItems: "center",
+};
 const title = {
-    fontFamily: "oregano",
-    fontStyle: "italic",
-    fontSize: "55px",
-    pl: "1%",
-    color: "#97DFFC",
-    "@media screen and (max-width: 1100px)": {
-      fontSize: "40px",
-    },
+  fontFamily: "oregano",
+  fontStyle: "italic",
+  fontSize: "55px",
+  pl: "1%",
+  color: "#97DFFC",
+  "@media screen and (max-width: 1100px)": {
+    fontSize: "40px",
+  },
 };
 const menuButton = {
-    position: "absolute",
-    margin: "8px",
-    top: 0,
-    right: 0,
-    transform: "translate(-30%, 30%)",
-    fontFamily: "Inika",
-    fontSize: "30px",
-    color: "#97DFFC",
+  position: "absolute",
+  margin: "8px",
+  top: 0,
+  right: 0,
+  transform: "translate(-30%, 30%)",
+  fontFamily: "Inika",
+  fontSize: "30px",
+  color: "#97DFFC",
 
-    "@media screen and (max-width: 1100px)": {
-      fontSize: "20px",
-      transform: "translate(-10%, 70%)",
-    },
+  "@media screen and (max-width: 1100px)": {
+    fontSize: "20px",
+    transform: "translate(-10%, 70%)",
+  },
 };
 const conSubm = {
-    display: "flex",
-    flexDirection: "column",
-    marginTop: "100px",
-    width: "65vw",
+  display: "flex",
+  flexDirection: "column",
+  marginTop: "100px",
+  width: "65vw",
 
-    "@media screen and (max-width: 1100px)": {
-        width: "85vw",
-    },
+  "@media screen and (max-width: 1100px)": {
+      width: "85vw",
+  },
 }
 const fields = {
-    display: "flex",
-    flexDirection: "column",
+  display: "flex",
+  flexDirection: "column",
 }
 const type = {
-    backgroundColor: "#858AE3",
-    fontFamily: "Inika",
-    color: "black",
-    borderRadius: 6,
-    border: "none",
-    outline: "none",
-    padding: "10px 10px",
-    fontSize: "20px",
-    marginBottom: "10px",
+  backgroundColor: "#858AE3",
+  fontFamily: "Inika",
+  color: "black",
+  borderRadius: 6,
+  border: "none",
+  outline: "none",
+  padding: "10px 10px",
+  fontSize: "20px",
+  marginBottom: "10px",
 };
 const inputTag = {
-    fontFamily: "Inika",
-    color: "#97DFFC",
-    textAlign: "left",
-    fontSize: "25px",
-    marginTop: "10px",
-    marginBottom: "10px",
+  fontFamily: "Inika",
+  color: "#97DFFC",
+  textAlign: "left",
+  fontSize: "25px",
+  marginTop: "10px",
+  marginBottom: "10px",
 };
 const submitButton = {
-  backgroundColor: "#4E148C",
-  fontFamily: "Inika",
-  fontSize: "20px",
-  height: "40%",
-  width: "20%",
-  color: "#97DFFC",
-  marginTop: "20px",
+backgroundColor: "#4E148C",
+fontFamily: "Inika",
+fontSize: "20px",
+height: "40%",
+width: "20%",
+color: "#97DFFC",
+marginTop: "20px",
 
-  ":hover": {
-      backgroundColor: "#858AE3",
-      color: "black",
-  },
-  ":focus": {
-      outline: "none",
-  },
-  "@media screen and (max-width: 1100px)": {
-      fontSize: "12px",
-  },
+":hover": {
+    backgroundColor: "#858AE3",
+    color: "black",
+},
+":focus": {
+    outline: "none",
+},
+"@media screen and (max-width: 1100px)": {
+    fontSize: "12px",
+},
 };
 
 function Submit() {
+    const state = useLocation().state;
     const [recipeName, setRecipeName] = useState("");
-  
-    const instance = Axios.create({
-      withCredentials: true,
-    });
+    const [value, setValue] = useState(state?.desc || "");
+    const [title, setTitle] = useState(state?.title || "");
+    const [file, setFile] = useState(null);
+    const [genre, setGenre] = useState(state?.genre || "");
 
-    const navigate = useNavigate();
-    function handleClickHome() {
-      navigate("/")
-    }
-    function handleClickRecipes() {
-      navigate("/recipes")
-    }
+    const upload = async ()=>{
+      try{
+          const formData = new FormData();
+          formData.append("file", file);
+          const res = await axios.post("http://localhost:8000/api/upload", formData);
+          
+          return res.data;
+      }catch(err){
+          console.log(err)
+      }
+  }
+  const handleClick = async e=>{
+    e.preventDefault();
+    const imgUrl = await upload();
+
+    try{
+ state ?
+            await axios.put(`http://localhost:8000/api/posts/${state.id}`  , {
+            title, 
+            desc:value,
+            genre,
+            img:file ? imgUrl : "", 
+        }, {withCredentials: true}) 
+        :    await axios.post(`http://localhost:8000/api/posts/` , {
+          title,
+          desc:value,
+          genre,
+          img:file ? imgUrl : "",
+          
+        },{withCredentials: true})
+      } catch (err){
+        console.log(err);
+      }
+      console.log(title);
+      
+      
+      
+}
+
+  
+    // const instance = Axios.create({
+    //   withCredentials: true,
+    // });
+    const [selectedValue, setSelectedValue] = React.useState('a');
+    console.log(value);
+
     return (
         <>
             <Box>
             <Box sx={menuContainer}>
-              <Typography sx={title} onClick={handleClickHome}>BLU's</Typography>
+              <Typography sx={titlesub}>BLU's</Typography>
               <Typography sx={menuButton}>
-                Username
+                RecipeName
               </Typography>
             </Box>
             <Box sx={conSubm}>
@@ -128,44 +172,32 @@ function Submit() {
                     type="text"
                     className="texfil"
                     style={type}
-                    value={recipeName}
-                    onChange={(e) => {
-                        setRecipeName(e.target.value);
-                    }}
+                    // value={recipeName}
+                    onChange={e=>setTitle(e.target.value)}
                     />
                     <Typography sx={inputTag}>
                         Select category
                     </Typography>
-                    <Dropdead />
+                    <Box>
+                    <input type='radio' checked={genre === "RelaxingFood"} name="genre" value="RelaxingFood" id="RelaxingFood"onChange={e=>setGenre(e.target.value)}  />
+                <label htmlFor='RelaxingFood'>RelaxingFood</label>
+                  <input type='radio' checked={genre === "Seafood"} name="genre" value="Seafood" id="Seafood"onChange={e=>setGenre(e.target.value)}  />
+                <label htmlFor='Seafood'>Seafood</label>
+                  <input type='radio' checked={genre === "ColdFood"} name="genre" value="ColdFood" id="ColdFood"onChange={e=>setGenre(e.target.value)}  />
+                <label htmlFor='ColdFood'>ColdFood</label>
+
+                    </Box>
+                
                     <Typography sx={inputTag}>
-                      Recipe detail
+                        Recipe detail
+                        <ReactQuill className='editor' theme="snow" value={value} onChange={setValue} />
                     </Typography>
-                    <input
-                    type="text"
-                    className="texfil"
-                    style={type}
-                    value={recipeName}
-                    onChange={(e) => {
-                        setRecipeName(e.target.value);
-                    }}
-                    />
-                    <Typography sx={inputTag}>
-                      Upload image
-                    </Typography>
-                    <input
-                    type="text"
-                    className="texfil"
-                    style={type}
-                    value={recipeName}
-                    onChange={(e) => {
-                        setRecipeName(e.target.value);
-                    }}
-                    />
+                    <input style={{display:"none", color:"white"}} type="file" id="file"  name="" onChange={e=>setFile(e.target.files[0])} />
+                {/* label for Uploading ^^^^  */}
+                <label className='file' htmlFor='file'>Upload Image</label>
                 </Box>
-                <Button sx={submitButton} onClick={handleClickRecipes}>
-                  Submit recipe
-                </Button>
             </Box>
+                <Button sx={createButton} onClick={handleClick} >Create your recipe</Button>
           </Box>{" "}
         </>
       )

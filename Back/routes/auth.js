@@ -10,7 +10,7 @@ router.post("/login", (req, res) => {
     const { username, email, password } = req.body;
     db.query("SELECT * FROM users WHERE username=?",
     [username], (err,result) =>{
-        if (err) throw err;
+        if (err) throw err; 
         if(result.length==0)
         return res.json("User not found!");
         

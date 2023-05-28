@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Typography, Box, Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { AuthContext } from "../Context/AuthContext";
 const conRight = {
     display: "flex",
     flexDirection: "column",
@@ -60,19 +61,42 @@ const tag = {
 }
 
 function RightSide() {
+
+    const [post,setPost] =useState([])
+
+  const location = useLocation();
+  const Navigate = useNavigate();
+  
+
+  const postId = location.pathname.split("/")[2];
+  console.log(postId);
+  const {currentUser} = useContext(AuthContext);
+  console.log(location);
+  
+  useEffect(() =>{
+    const fetchData = async () =>{
+      try{
+        const res = await axios.get(`http://localhost:8000/api/posts/${postId}`)
+        setPost(res.data);
+      } catch (err){
+        console.log(err);
+      }
+      
+    }
+      fetchData();
+  }, [postId]);
+    console.log(post.username);
+    console.log(post.genre)
   return (
     <Box sx={conRight}>
         <Box sx={duo}>
             <Typography sx={recipeDeta}>Recipe Details</Typography>
             <Box sx={recipeCate}>
-                <Typography sx={tag}>Cold food</Typography>
+                <Typography sx={tag}>{post.genre}</Typography>
             </Box>
         </Box>
-        <Typography sx={desc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        <Typography sx={desc}>
+            {post.desc}
         </Typography>
     </Box>
   )

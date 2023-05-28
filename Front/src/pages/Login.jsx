@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Box, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import "./Stubborn.css";
 import Swal from "sweetalert2";
+import { AuthContext } from '../Context/AuthContext';
 
 const container = {
   display: "flex",
@@ -85,17 +86,41 @@ const space = {
 };
 
 function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+//   const [username, setUsername] = useState("");
+//   const [password, setPassword] = useState("");
 
-  const instance = Axios.create({
-    withCredentials: true,
+//   const instance = Axios.create({
+//     withCredentials: true,
+//   });
+const [inputs,setInputs] = useState({
+    username:"",
+    email:"",
+    password:"",
   });
+  const [err,setError] = useState(null);
 
   const navigate = useNavigate();
-  function handleClickHome() {
-    navigate("/")
+
+  const { login } = useContext(AuthContext);
+  
+
+
+  const handleChange = e =>{
+    setInputs(prev=>({...prev, [e.target.name]: e.target.value}))
   }
+  const handleSumbit = async e =>{
+    e.preventDefault();
+    try{
+      login(inputs);
+      navigate("/");
+    }catch(err){ 
+      
+      setError(err.response.data); 
+      
+    }
+  };
+
+  
   function handleClickRegister() {
     navigate("/register")
   }
@@ -116,10 +141,9 @@ function Login() {
             type="text"
             className="texfil"
             style={type}
-            value={username}
-            onChange={(e) => {
-              setUsername(e.target.value);
-            }}
+            // value={username}
+            name="username"
+            onChange={handleChange}
           />
           <Box sx={space} />
           <label htmlFor="texfil" style={inputTag}>
@@ -129,14 +153,13 @@ function Login() {
             type="text"
             className="texfil"
             style={type}
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
+            // value={password}
+            name="password"
+            onChange={handleChange}
           />
         </Box>
         <Box sx={space} />
-        <Button variant="text" sx={submitButton} onClick={handleClickHome}>
+        <Button variant="text" sx={submitButton} onClick={handleSumbit}>
           Log in
         </Button>
         <Button variant="text" sx={registerButton} onClick={handleClickRegister}>

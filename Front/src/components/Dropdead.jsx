@@ -81,6 +81,7 @@ const dropdownText = {
   },
 };
 
+
 function Dropdead() {
   const [dropOpen, setDropOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("Select category");
@@ -95,17 +96,17 @@ function Dropdead() {
         setSelectedCategory(e.target.innerText);
       }}
     >
-      <Box sx={dropdownButton} onClick={toggleDropdown}>
+      <Box sx={dropdownButton}  onClick={toggleDropdown}  >
         {selectedCategory}
       </Box>
-      <Box sx={dropdown} className={dropOpen ? "dropdown open" : "dropdown"}>
-        <Box sx={dropdownContent} onClick={toggleDropdown}>
+      <Box sx={dropdown} onChange={e=>setGenre(e.target.value)} className={dropOpen ? "dropdown open" : "dropdown"}>
+        <Box sx={dropdownContent} value="Seafood" onClick={toggleDropdown}>
           <Typography sx={dropdownText}>Seafood</Typography>
         </Box>
-        <Box sx={dropdownContent} onClick={toggleDropdown}>
+          <Box sx={dropdownContent} value="Cold food" onClick={toggleDropdown}>
           <Typography sx={dropdownText}>Cold food</Typography>
         </Box>
-        <Box sx={dropdownContent} onClick={toggleDropdown}>
+        <Box sx={dropdownContent} value="Relaxing food" onClick={toggleDropdown}>
           <Typography sx={dropdownText}>Relaxing food</Typography>
         </Box>
       </Box>

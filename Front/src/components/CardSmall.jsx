@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Typography, Box } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 
 const conCard = {
     backgroundColor: "#97DFFC",
@@ -54,13 +53,8 @@ const desc = {
 }
 
 function CardSmall() {
-    const navigate = useNavigate();
-
-    function handleClickDetail() {
-        navigate("/detail");
-    }
   return (
-    <Box sx={conCard} onClick={handleClickDetail}>
+    <Box sx={conCard}>
         <img src="assets/sample.jpg" style={imag} />
         <Box sx={detail}>
             <Box sx={titl}>Recipe name</Box>

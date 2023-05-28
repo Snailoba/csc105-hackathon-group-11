@@ -4,9 +4,13 @@ import App from "./App";
 import "@fontsource/oregano";
 import "@fontsource/inika";
 import { BrowserRouter } from "react-router-dom";
+import { AuthContextProvider } from './Context/AuthContext.jsx'
+
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
+  <AuthContextProvider>
     <App />
+  </AuthContextProvider>
   </BrowserRouter>
 );
