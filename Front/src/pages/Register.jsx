@@ -150,7 +150,7 @@ function Register() {
           />
         </Box>
         <Box sx={space} />
-        <Button variant="text" sx={submitButton}>
+        <Button variant="text" sx={submitButton} onClick={handleClickLogin}>
           Register
         </Button>
         <Button variant="text" sx={loginButton} onClick={handleClickLogin}>

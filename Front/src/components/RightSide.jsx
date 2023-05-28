@@ -7,7 +7,11 @@ const conRight = {
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    width: "45%"
+    width: "45%",
+
+    "@media screen and (max-width: 1100px)": {
+        width: "90%",
+    },
 }
 const duo = {
     display: "flex",
@@ -15,7 +19,10 @@ const duo = {
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
-    paddingBottom: "20px",
+    marginBottom: "20px",
+    "@media screen and (max-width: 1100px)": {
+        marginBottom: "10px",
+    },
 }
 const recipeDeta = {
     fontFamily: "Inika",
@@ -31,6 +38,7 @@ const desc = {
     fontSize: "20px",
     color: "#97DFFC",
     textAlign: "left",
+    marginBottom: "20px",
   
     "@media screen and (max-width: 1100px)": {
         fontSize: "10px",

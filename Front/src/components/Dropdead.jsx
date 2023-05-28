@@ -11,9 +11,6 @@ const categoryList = {
   height: "5vh",
   marginBottom: "10px",
 
-  "@media screen and (max-width: 1100px)": {
-    width: "70vw",
-  },
 };
 const dropdownButton = {
   backgroundColor: "#858AE3",
@@ -57,8 +54,8 @@ const dropdown = {
   },
 
   "@media screen and (max-width: 1100px)": {
-    width: "70vw",
-    height: "27vh",
+    width: "85vw",
+    height: "15vh",
   },
 };
 const dropdownContent = {

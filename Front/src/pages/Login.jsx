@@ -93,6 +93,9 @@ function Login() {
   });
 
   const navigate = useNavigate();
+  function handleClickHome() {
+    navigate("/")
+  }
   function handleClickRegister() {
     navigate("/register")
   }
@@ -133,7 +136,7 @@ function Login() {
           />
         </Box>
         <Box sx={space} />
-        <Button variant="text" sx={submitButton}>
+        <Button variant="text" sx={submitButton} onClick={handleClickHome}>
           Log in
         </Button>
         <Button variant="text" sx={registerButton} onClick={handleClickRegister}>

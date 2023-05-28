@@ -42,6 +42,9 @@ const conCategory = {
     justifyContent: "left",
     alignItems: "center",
     padding: "10px",
+    "@media screen and (max-width: 1100px)": {
+        height: "10vh",
+    },
 };
 const conSimor = {
     width: "10%",
@@ -69,7 +72,8 @@ const simorButton = {
         outline: "none",
     },
     "@media screen and (max-width: 1100px)": {
-        fontSize: "12px",
+        fontSize: "10px",
+        width: "50%",
     },
 };
 

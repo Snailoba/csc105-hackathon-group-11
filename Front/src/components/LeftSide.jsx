@@ -8,7 +8,12 @@ const conLeft = {
     justifyContent: "center",
     alignItems: "center",
     width: "45%",
-    height: "80vh"
+    height: "80vh",
+
+    "@media screen and (max-width: 1100px)": {
+        width: "90%",
+        height: "40vh",
+    },
 }
 const top = {
     display: "flex",
@@ -17,6 +22,9 @@ const top = {
     alignItems: "center",
     width: "100%",
     marginBottom: "20px",
+    "@media screen and (max-width: 1100px)": {
+        marginBottom: "10px",
+    },
 }
 const bottom = {
     display: "flex",
@@ -24,8 +32,11 @@ const bottom = {
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
-    height: "25%",
+    height: "15%",
     marginBottom: "20px",
+    "@media screen and (max-width: 1100px)": {
+        marginBottom: "0px",
+    },
 }
 const recipeDeta = {
     fontFamily: "Inika",
@@ -68,6 +79,7 @@ const bottomButton = {
     },
     "@media screen and (max-width: 1100px)": {
         fontSize: "12px",
+        height: "60%",
     },
 }
 const imag = {

@@ -35,6 +35,11 @@ const menuButton = {
     fontFamily: "Inika",
     fontSize: "30px",
     color: "#97DFFC",
+
+    "@media screen and (max-width: 1100px)": {
+      fontSize: "20px",
+      transform: "translate(-10%, 70%)",
+    },
 };
 const conSubm = {
     display: "flex",
@@ -76,13 +81,18 @@ function Submit() {
     const instance = Axios.create({
       withCredentials: true,
     });
+
+    const navigate = useNavigate();
+    function handleClickHome() {
+      navigate("/")
+    }
     return (
         <>
             <Box>
             <Box sx={menuContainer}>
-              <Typography sx={title}>BLU's</Typography>
+              <Typography sx={title} onClick={handleClickHome}>BLU's</Typography>
               <Typography sx={menuButton}>
-                RecipeName
+                Username
               </Typography>
             </Box>
             <Box sx={conSubm}>
@@ -105,8 +115,29 @@ function Submit() {
                     </Typography>
                     <Dropdead />
                     <Typography sx={inputTag}>
-                        Recipe detail
+                      Recipe detail
                     </Typography>
+                    <input
+                    type="text"
+                    className="texfil"
+                    style={type}
+                    value={recipeName}
+                    onChange={(e) => {
+                        setRecipeName(e.target.value);
+                    }}
+                    />
+                    <Typography sx={inputTag}>
+                      Upload image
+                    </Typography>
+                    <input
+                    type="text"
+                    className="texfil"
+                    style={type}
+                    value={recipeName}
+                    onChange={(e) => {
+                        setRecipeName(e.target.value);
+                    }}
+                    />
                 </Box>
             </Box>
           </Box>{" "}

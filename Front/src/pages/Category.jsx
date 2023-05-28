@@ -33,6 +33,11 @@ const menuButton = {
     fontFamily: "Inika",
     fontSize: "30px",
     color: "#97DFFC",
+
+    "@media screen and (max-width: 1100px)": {
+      fontSize: "20px",
+      transform: "translate(-10%, 70%)",
+    },
 };
 const conCate = {
     display: "flex",
@@ -55,11 +60,15 @@ const displayArea = {
 };
 
 function Category() {
+  const navigate = useNavigate();
+  function handleClickHome() {
+    navigate("/")
+  }
   return (
     <>
         <Box>
         <Box sx={menuContainer}>
-          <Typography sx={title}>BLU's</Typography>
+          <Typography sx={title} onClick={handleClickHome}>BLU's</Typography>
           <Typography sx={menuButton}>
             Username
           </Typography>

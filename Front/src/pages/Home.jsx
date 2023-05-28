@@ -36,6 +36,11 @@ const menuButton = {
   fontFamily: "Inika",
   fontSize: "30px",
   color: "#97DFFC",
+
+  "@media screen and (max-width: 1100px)": {
+    fontSize: "20px",
+    transform: "translate(-10%, 70%)",
+  },
 };
 const conHome = {
   display: "flex",
@@ -43,7 +48,7 @@ const conHome = {
   marginTop: "90px",
   width: "95vw",
   "@media screen and (max-width: 1100px)": {
-    width: "70vw",
+    width: "90vw",
   },
 };
 
