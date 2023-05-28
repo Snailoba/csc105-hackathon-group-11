@@ -57,6 +57,15 @@ const displayArea = {
        gridTemplateColumns: "repeat(2, 1fr)",
     },
 };
+const titl = {
+    fontFamily: "Inika",
+    fontSize: "20px",
+    color: "black",
+  
+    "@media screen and (max-width: 1100px)": {
+      fontSize: "10px",
+    },
+  };
 const duo = {
     display: "flex",
     flexDirection: "row",
@@ -108,41 +117,38 @@ function Recipes() {
         navigate("/submit")
     }
     return (
-      <>
+        <>
           <Box>
-          <Box sx={menuContainer}>
-            <Typography sx={title} onClick={handleClickHome}>BLU's</Typography>
-            <Typography sx={menuButton}>
-              Username
-            </Typography>
-          </Box>
-          <Box sx={conCate}>
-          <Box sx={duo}>
-            <Typography sx={duoText}>
-                Your recipes
-            </Typography>
-            <Button sx={duoButton} onClick={handleClickSubmit}>
-                Create new recipe
-            </Button>
-          </Box>
-          <Box sx={displayArea}>
-              <CardBig />
-              <CardBig />
-              <CardBig />
-              <CardBig />
-              <CardBig />
-              <CardBig />
-              <CardBig />
-              <CardBig />
-              <CardBig />
-              <CardBig />
-              <CardBig />
-              <CardBig />
-          </Box>
-          </Box>
-        </Box>{" "}
-      </>
-    )
-}
-
-export default Recipes
+            <Box sx={menuContainer}>
+              <Typography sx={title} onClick={handleClickHome}>
+                BLU's
+              </Typography>
+              <Typography sx={menuButton}>Username</Typography>
+            </Box>
+            <Box sx={conCate}>
+              <Box sx={duo}>
+                <Typography sx={duoText}>Your recipes</Typography>
+                <Button sx={duoButton} onClick={handleClickSubmit}>
+                  Create new recipe
+                </Button>
+              </Box>
+              <Box sx={displayArea}>
+                {posts.map((post) => (
+                  <Box sx={conCard} className="post" key={post.id}>
+                    <img src={`../upload/${post.img}`} alt="" style={imag} />
+                    <Box sx={detail}>
+                      <Link className="link" to={`/post/${post.id}`}>
+                        <Box sx={titl}>{post.title}</Box>
+                        <Box sx={desc}>By {post.username}</Box>
+                      </Link>
+                    </Box>
+                  </Box>
+                ))}
+              </Box>
+            </Box>
+          </Box>{" "}
+        </>
+      );
+    }
+    
+    export default Recipes;

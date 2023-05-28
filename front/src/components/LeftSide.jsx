@@ -10,13 +10,13 @@ const conLeft = {
     alignItems: "center",
     width: "45%",
     height: "80vh",
-
+  
     "@media screen and (max-width: 1100px)": {
-        width: "90%",
-        height: "40vh",
+      width: "90%",
+      height: "40vh",
     },
-}
-const top = {
+  };
+  const top = {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
@@ -24,10 +24,10 @@ const top = {
     width: "100%",
     marginBottom: "20px",
     "@media screen and (max-width: 1100px)": {
-        marginBottom: "10px",
+      marginBottom: "10px",
     },
-}
-const bottom = {
+  };
+  const bottom = {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
@@ -36,33 +36,33 @@ const bottom = {
     height: "15%",
     marginBottom: "20px",
     "@media screen and (max-width: 1100px)": {
-        marginBottom: "0px",
+      marginBottom: "0px",
     },
-}
-const recipeDeta = {
+  };
+  const recipeDeta = {
     fontFamily: "Inika",
     fontSize: "30px",
     color: "#97DFFC",
   
     "@media screen and (max-width: 1100px)": {
-        fontSize: "15px",
+      fontSize: "15px",
     },
-}
-const recipeOwner = {
+  };
+  const recipeOwner = {
     backgroundColor: "#97DFFC",
     padding: "10px",
     borderRadius: "10px",
-}
-const tag = {
+  };
+  const tag = {
     fontFamily: "Inika",
     fontSize: "20px",
     color: "black",
   
     "@media screen and (max-width: 1100px)": {
-        fontSize: "10px",
+      fontSize: "10px",
     },
-}
-const bottomButton = {
+  };
+  const bottomButton = {
     backgroundColor: "#4E148C",
     fontFamily: "Inika",
     fontSize: "20px",
@@ -70,27 +70,26 @@ const bottomButton = {
     width: "40%",
     color: "#97DFFC",
     right: 0,
-
+  
     ":hover": {
-        backgroundColor: "#858AE3",
-        color: "black",
+      backgroundColor: "#858AE3",
+      color: "black",
     },
     ":focus": {
-        outline: "none",
+      outline: "none",
     },
     "@media screen and (max-width: 1100px)": {
-        fontSize: "12px",
-        height: "60%",
+      fontSize: "12px",
+      height: "60%",
     },
-}
-const imag = {
+  };
+  const imag = {
     width: "100%",
     height: "60%",
     border: "3px solid #32174d",
     borderRadius: "10px",
     objectFit: "cover",
-}
-
+  };
 function LeftSide() {
     const [post,setPost] =useState([])
 
@@ -130,22 +129,23 @@ function LeftSide() {
    
     return (
         <Box sx={conLeft}>
-            <Box sx={top}>
-                <Typography sx={recipeDeta}>{post.title}</Typography>
-                <Box sx={recipeOwner}>
-                    <Typography sx={tag}>By {post.username}</Typography>
-                </Box>
+          <Box sx={top}>
+            <Typography sx={recipeDeta}>{post.title}</Typography>
+            <Box sx={recipeOwner}>
+              <Typography sx={tag}>By {post.username}</Typography>
             </Box>
-            <img src={`../upload/${post.img}`} style={imag} />
+          </Box>
+          <img src={`../upload/${post.img}`} style={imag} />
+          {currentUser.username === post.username && (
             <Box sx={bottom}>
-            {currentUser.username === post.username && (<div className='edit'>
-                <Link to={`/Submit?edit=2`} state={post} sx={bottomButton}>Edit recipe</Link>
-                <Button sx={bottomButton} onClick={handleDelete}>Delete recipe</Button>
-                </div>
-            )}
+              <Link to={`/Submit?edit=2`} state={post} sx={bottomButton}>Edit recipe</Link>
+              <Button sx={bottomButton} onClick={handleDelete}>
+                Delete recipe
+              </Button>
             </Box>
+          )}
         </Box>
-      )
-}
-
-export default LeftSide
+      );
+    }
+    
+    export default LeftSide;

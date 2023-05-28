@@ -114,16 +114,22 @@ const trioCate = {
   justifyContent: "left",
 };
 const cate = {
-  fontFamily: "Inika",
-  color: "black",
-  textAlign: "left",
-  fontSize: "25px",
   backgroundColor: "#97DFFC",
   borderRadius: "10px",
   padding: "5px",
   marginLeft: "5px",
   marginRight: "15px",
 };
+const cateText = {
+  fontFamily: "Inika",
+  color: "black",
+  textAlign: "left",
+  fontSize: "25px",
+  "@media screen and (max-width: 1100px)": {
+    fontSize: "10px",
+  },
+};
+
 
 function Submit() {
   const state = useLocation().state;
@@ -216,7 +222,7 @@ function Submit() {
                 onChange={(e) => setGenre(e.target.value)}
               />
               <label htmlFor="Seafood" style={cate}>
-                Seafood
+                <Typography sx={cateText}>Seafood</Typography>
               </label>
               <input
                 type="radio"
@@ -226,8 +232,8 @@ function Submit() {
                 id="ColdFood"
                 onChange={(e) => setGenre(e.target.value)}
               />
-              <label htmlFor="ColdFood" style={cate}>
-                Cold food
+              <label htmlFor="Seafood" style={cate}>
+                <Typography sx={cateText}>Cold food</Typography>
               </label>
               <input
                 type="radio"
@@ -237,8 +243,8 @@ function Submit() {
                 id="RelaxingFood"
                 onChange={(e) => setGenre(e.target.value)}
               />
-              <label htmlFor="RelaxingFood" style={cate}>
-                Relaxing food
+              <label htmlFor="Seafood" style={cate}>
+                <Typography sx={cateText}>Relaxing food</Typography>
               </label>
             </Box>
             <Typography sx={inputTag}>Recipe detail</Typography>
