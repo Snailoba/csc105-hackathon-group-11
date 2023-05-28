@@ -40,40 +40,35 @@ router.get("/:id", (req, res) => {
 
 //addpost not finish
 router.post("/", (req, res) => {
-    try {
-      const token = req.cookies.access_token;
-      res.send("HI");
-        // console.log(token);
-        if(!token) return res.json("Not Authenticated!");
-        jwt.verify(token, "jwtkey", (err,userInfo) =>{
-            
-            if(err) return res.json(err);
-            const values = [
-                req.body.title,
-                req.body.desc,
-                req.body.img,
-                req.body.genre,
-                userInfo.id
-            ];
-            db.query("INSERT INTO posts(`title`,`desc`,`img`,`genre`,`uid`) VALUES (?)",[values], (err,result) =>{
-              if (err) return res.status(500).json(err);
-              return res.json(result);
-              
-            })
-        })
-      
-      
+  const token = req.cookies.access_token;
+  console.log(token);
+if (!token) return res.status(401).json("Not authenticated!");
+jwt.verify(token, "jwtkey", (err, userInfo) => {
+
+  if (err) return res.status(403).json("Token is not valid!");
+
+  const q = "INSERT INTO posts(`title`,`desc`,`img`,`genre`,`uid`) VALUES (?)";
+
+  const values = [
+      req.body.title,
+      req.body.desc,
+      req.body.img,
+      req.body.genre,
+      userInfo.id
+  ];
+
+db.query(q, [values], (err,data) =>{
+  if (err) return res.status(500).json(err);
   
-  
-    } catch (e) {
-      res.send(e);
-    }
+  return res.json("Post has been created!");
+})
+
+});
 });
 
-//delete
-router.delete("/:id", (req, res) => {
-    try {
-        const token = req.cookies.access_token;
+// delete
+router.delete("/:id", (req,res) =>{
+  const token = req.cookies.access_token;
     console.log(token);
   if (!token) return res.status(401).json("Not authenticated!");
   jwt.verify(token, "jwtkey", (err, userInfo) => {
@@ -89,14 +84,10 @@ router.delete("/:id", (req, res) => {
     });
   }
   );
-      
-      
   
-  
-    } catch (e) {
-      res.send(e);
-    }
-});
+
+})
+
 
 //update
 router.put("/:id", (req, res) => {
