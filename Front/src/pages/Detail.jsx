@@ -59,7 +59,6 @@ function Detail() {
   const [post, setPost] = useState([]);
 
   const location = useLocation();
-  const Navigate = useNavigate();
 
   const postId = location.pathname.split("/")[2];
 

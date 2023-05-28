@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Typography, Box, Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CardBig from "../components/CardBig";
+import axios from "axios";
 
 const menuContainer = {
   background: "#613DC1",
@@ -98,8 +99,58 @@ const duoButton = {
     width: "40%",
   },
 };
+const conCard = {
+  backgroundColor: "#97DFFC",
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "center",
+  padding: "10px",
+  width: "90%",
+  height: "30vh",
+  borderRadius: "10px",
+  overflow: "hidden",
+  marginBottom: "20px",
 
-function Recipes() {
+  "@media screen and (max-width: 1100px)": {
+    width: "80%",
+    height: "15vh",
+  },
+};
+const imag = {
+  width: "55%",
+  height: "100%",
+  border: "3px solid #32174d",
+  borderRadius: "10px",
+  objectFit: "cover",
+  marginRight: "10px",
+};
+const detail = {
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  width: "45%",
+};
+const titl = {
+  fontFamily: "Inika",
+  fontSize: "25px",
+  color: "black",
+
+  "@media screen and (max-width: 1100px)": {
+    fontSize: "15px",
+  },
+};
+const desc = {
+  wordWrap: "break-word",
+  fontFamily: "Inika",
+  fontSize: "20px",
+  color: "black",
+
+  "@media screen and (max-width: 1100px)": {
+    fontSize: "10px",
+  },
+};
+
+function Recipes({ genre }) {
   const navigate = useNavigate();
   function handleClickHome() {
     navigate("/");
@@ -107,6 +158,27 @@ function Recipes() {
   function handleClickSubmit() {
     navigate("/submit");
   }
+
+  const [posts, setPosts] = useState([]);
+
+  console.log(location);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(`http://localhost:8000/api/posts/`);
+        //   const res = await axios.get(`http://localhost:8080/api/posts/?cat=${cat}`)
+        console.log(res.data);
+        const filteredPosts = res.data.filter(
+          (post) => post.genre === "Seafood"
+        );
+        setPosts(filteredPosts);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+    console.log(posts.username);
+  }, [genre]);
   return (
     <>
       <Box>
@@ -124,18 +196,17 @@ function Recipes() {
             </Button>
           </Box>
           <Box sx={displayArea}>
-            <CardBig />
-            <CardBig />
-            <CardBig />
-            <CardBig />
-            <CardBig />
-            <CardBig />
-            <CardBig />
-            <CardBig />
-            <CardBig />
-            <CardBig />
-            <CardBig />
-            <CardBig />
+            {posts.map((post) => (
+              <Box sx={conCard} className="post" key={post.id}>
+                <img src={`../upload/${post.img}`} alt="" style={imag} />
+                <Box sx={detail}>
+                  <Link className="link" to={`/post/${post.id}`}>
+                    <Box sx={titl}>{post.title}</Box>
+                    <Box sx={desc}>By {post.username}</Box>
+                  </Link>
+                </Box>
+              </Box>
+            ))}
           </Box>
         </Box>
       </Box>{" "}

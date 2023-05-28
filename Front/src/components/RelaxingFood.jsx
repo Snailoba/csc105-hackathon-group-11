@@ -17,27 +17,41 @@ const conCard = {
   overflow: "hidden",
   marginRight: "10px",
 };
-const imag = {
+const conImag = {
+  marginRight: "10px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
   width: "45%",
   height: "100%",
-  border: "3px solid #32174d",
+  "@media screen and (max-width: 1100px)": {
+    width: "100%",
+    marginRight: "0px",
+  },
+};
+const imag = {
+  width: "100%",
+  height: "100%",
+  border: "2px solid #2C0735",
   borderRadius: "10px",
   objectFit: "cover",
-  marginRight: "10px",
 };
 const detail = {
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   width: "45%",
+  "@media screen and (max-width: 1100px)": {
+    display: "none",
+  },
 };
 const titl = {
   fontFamily: "Inika",
-  fontSize: "20px",
+  fontSize: "15px",
   color: "black",
 
   "@media screen and (max-width: 1100px)": {
-    fontSize: "15px",
+    fontSize: "10px",
   },
 };
 const desc = {
@@ -47,10 +61,9 @@ const desc = {
   color: "black",
 
   "@media screen and (max-width: 1100px)": {
-    fontSize: "15px",
+    fontSize: "10px",
   },
 };
-
 const trio = {
   display: "flex",
   flexDirection: "column",
@@ -91,24 +104,23 @@ const conCategory = {
   alignItems: "center",
   padding: "10px",
   "@media screen and (max-width: 1100px)": {
-    height: "10vh",
+    height: "15vh",
   },
 };
 const conSimor = {
-  width: "10%",
+  width: "20%",
   height: "100%",
   display: "flex",
   flexDirection: "row",
   justifyContent: "center",
   alignItems: "center",
-  transform: "translateX(45%)",
 };
 const simorButton = {
   backgroundColor: "#858AE3",
   fontFamily: "Inika",
   fontSize: "15px",
   height: "40%",
-  width: "100%",
+  width: "50%",
   color: "black",
   right: 0,
 
@@ -161,7 +173,9 @@ const RelaxingFood = ({ genre }) => {
 
           {posts.map((post) => (
             <Box sx={conCard} className="post" key={post.id}>
-              <img src={`../upload/${post.img}`} alt="" style={imag} />
+              <Box sx={conImag}>
+                <img src={`../upload/${post.img}`} alt="" style={imag} />
+              </Box>
               <Box sx={detail}>
                 <Link className="link" to={`/post/${post.id}`}>
                   <Box sx={titl}>{post.title}</Box>

@@ -33,7 +33,7 @@ const detail = {
 };
 const titl = {
   fontFamily: "Inika",
-  fontSize: "20px",
+  fontSize: "15px",
   color: "black",
 
   "@media screen and (max-width: 1100px)": {
@@ -47,7 +47,7 @@ const desc = {
   color: "black",
 
   "@media screen and (max-width: 1100px)": {
-    fontSize: "8px",
+    fontSize: "10px",
   },
 };
 
