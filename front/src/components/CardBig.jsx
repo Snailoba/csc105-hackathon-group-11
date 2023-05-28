@@ -12,7 +12,12 @@ const conCard = {
     height: "30vh",
     borderRadius: "10px",
     overflow: "hidden",
-    marginBottom: "20px"
+    marginBottom: "20px",
+
+    "@media screen and (max-width: 1100px)": {
+        width: "80%",
+        height: "15vh",
+    },
 }
 const imag = {
     width: "55%",
@@ -34,7 +39,7 @@ const titl = {
     color: "black",
 
     "@media screen and (max-width: 1100px)": {
-        fontSize: "20px",
+        fontSize: "15px",
     },
 }
 const desc = {
@@ -44,7 +49,7 @@ const desc = {
     color: "black",
 
     "@media screen and (max-width: 1100px)": {
-        fontSize: "15px",
+        fontSize: "10px",
     },
 }
 function CardBig() {

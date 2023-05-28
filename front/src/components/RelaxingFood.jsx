@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Typography, Box, Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CardSmall from "./CardSmall"
 import { AuthContext } from '../Context/AuthContext';
 import axios from "axios";
@@ -91,6 +91,9 @@ const conCategory = {
     justifyContent: "left",
     alignItems: "center",
     padding: "10px",
+    "@media screen and (max-width: 1100px)": {
+        height: "10vh",
+    },
 };
 const conSimor = {
     width: "10%",
@@ -118,9 +121,10 @@ const simorButton = {
         outline: "none",
     },
     "@media screen and (max-width: 1100px)": {
-        fontSize: "12px",
+        fontSize: "10px",
+        width: "50%",
     },
-};
+};;
 
 const RelaxingFood = ({genre}) => {
     const navigate = useNavigate();
@@ -159,8 +163,10 @@ const RelaxingFood = ({genre}) => {
             <Box sx={conCard} className='post' key={post.id}>
                 <img src={`../upload/${post.img}`} alt="" style={imag} />
                 <Box sx={detail}>
+                <Link className='link' to={`/post/${post.id}`}>
                     <Box sx={titl}>{post.title}</Box>
                     <Box sx={desc}>By {currentUser?.username}</Box>
+                </Link>
                 </Box>
             </Box>
 

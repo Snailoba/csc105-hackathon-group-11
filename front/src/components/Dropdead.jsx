@@ -11,9 +11,6 @@ const categoryList = {
   height: "5vh",
   marginBottom: "10px",
 
-  "@media screen and (max-width: 1100px)": {
-    width: "70vw",
-  },
 };
 const dropdownButton = {
   backgroundColor: "#858AE3",
@@ -57,8 +54,8 @@ const dropdown = {
   },
 
   "@media screen and (max-width: 1100px)": {
-    width: "70vw",
-    height: "27vh",
+    width: "85vw",
+    height: "15vh",
   },
 };
 const dropdownContent = {
@@ -84,6 +81,7 @@ const dropdownText = {
   },
 };
 
+
 function Dropdead() {
   const [dropOpen, setDropOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("Select category");
@@ -105,7 +103,7 @@ function Dropdead() {
         <Box sx={dropdownContent} value="Seafood" onClick={toggleDropdown}>
           <Typography sx={dropdownText}>Seafood</Typography>
         </Box>
-        <Box sx={dropdownContent} value="Cold food" onClick={toggleDropdown}>
+          <Box sx={dropdownContent} value="Cold food" onClick={toggleDropdown}>
           <Typography sx={dropdownText}>Cold food</Typography>
         </Box>
         <Box sx={dropdownContent} value="Relaxing food" onClick={toggleDropdown}>

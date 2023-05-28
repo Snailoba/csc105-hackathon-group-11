@@ -11,7 +11,11 @@ const conCard = {
     height: "90%",
     borderRadius: "10px",
     overflow: "hidden",
-    marginRight: "10px"
+    marginRight: "10px",
+    "@media screen and (max-width: 1100px)": {
+        width: "20%",
+        marginRight: "5px",
+    },
 }
 const imag = {
     width: "45%",
@@ -34,7 +38,7 @@ const titl = {
     color: "black",
 
     "@media screen and (max-width: 1100px)": {
-        fontSize: "15px",
+        fontSize: "10px",
     },
 }
 const desc = {
@@ -44,7 +48,7 @@ const desc = {
     color: "black",
 
     "@media screen and (max-width: 1100px)": {
-        fontSize: "15px",
+        fontSize: "8px",
     },
 }
 

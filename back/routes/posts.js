@@ -47,7 +47,7 @@ router.post("/", (req, res) => {
         if(!token) return res.json("Not Authenticated!");
         jwt.verify(token, "jwtkey", (err,userInfo) =>{
             
-            if(err) return res.json(err && "Token is not valid");
+            if(err) return res.json(err);
             const values = [
                 req.body.title,
                 req.body.desc,
@@ -55,10 +55,9 @@ router.post("/", (req, res) => {
                 req.body.genre,
                 userInfo.id
             ];
-            db.query("INSERT INTO posts(`title`,`desc`,`img`,`genre`,`uid`) VALUES (?)"
-            , [values], (err,data) =>{
+            db.query("INSERT INTO posts(`title`,`desc`,`img`,`genre`,`uid`) VALUES (?)",[values], (err,result) =>{
               if (err) return res.status(500).json(err);
-              return res.json("Post has been created!");
+              return res.json(result);
               
             })
         })

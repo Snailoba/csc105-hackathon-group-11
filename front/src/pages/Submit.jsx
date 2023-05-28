@@ -8,89 +8,95 @@ import "./Stubborn.css";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import axios from "axios";
+import { AuthContext } from '../Context/AuthContext';
 
 const menuContainer = {
-    background: "#613DC1",
-    position: "absolute",
-    top: 0,
-    left: 0,
-    height: "85px",
-    width: "100%",
-    display: "flex",
-    alignItems: "center",
-  };
-const titlesub = {
-    fontFamily: "oregano",
-    fontStyle: "italic",
-    fontSize: "55px",
-    pl: "1%",
-    color: "#97DFFC",
-    "@media screen and (max-width: 1100px)": {
-      fontSize: "40px",
-    },
+  background: "#613DC1",
+  position: "absolute",
+  top: 0,
+  left: 0,
+  height: "85px",
+  width: "100%",
+  display: "flex",
+  alignItems: "center",
+};
+const title = {
+  fontFamily: "oregano",
+  fontStyle: "italic",
+  fontSize: "55px",
+  pl: "1%",
+  color: "#97DFFC",
+  "@media screen and (max-width: 1100px)": {
+    fontSize: "40px",
+  },
 };
 const menuButton = {
-    position: "absolute",
-    margin: "8px",
-    top: 0,
-    right: 0,
-    transform: "translate(-30%, 30%)",
-    fontFamily: "Inika",
-    fontSize: "30px",
-    color: "#97DFFC",
+  position: "absolute",
+  margin: "8px",
+  top: 0,
+  right: 0,
+  transform: "translate(-30%, 30%)",
+  fontFamily: "Inika",
+  fontSize: "30px",
+  color: "#97DFFC",
+
+  "@media screen and (max-width: 1100px)": {
+    fontSize: "20px",
+    transform: "translate(-10%, 70%)",
+  },
 };
 const conSubm = {
-    display: "flex",
-    flexDirection: "column",
-    marginTop: "100px",
-    width: "65vw",
+  display: "flex",
+  flexDirection: "column",
+  marginTop: "100px",
+  width: "65vw",
 
-    "@media screen and (max-width: 1100px)": {
-        width: "85vw",
-    },
+  "@media screen and (max-width: 1100px)": {
+      width: "85vw",
+  },
 }
 const fields = {
-    display: "flex",
-    flexDirection: "column",
+  display: "flex",
+  flexDirection: "column",
 }
 const type = {
-    backgroundColor: "#858AE3",
-    fontFamily: "Inika",
-    color: "black",
-    borderRadius: 6,
-    border: "none",
-    outline: "none",
-    padding: "10px 10px",
-    fontSize: "20px",
-    marginBottom: "10px",
-  };
-  const inputTag = {
-    fontFamily: "Inika",
-    color: "#97DFFC",
-    textAlign: "left",
-    fontSize: "25px",
-    marginTop: "10px",
-    marginBottom: "10px",
-  };
-  const createButton = {
-    backgroundColor: "#4E148C",
-    fontFamily: "Inika",
-    fontSize: "20px",
-    height: "40%",
-    width: "40%",
-    color: "#97DFFC",
-    right: 0,
+  backgroundColor: "#858AE3",
+  fontFamily: "Inika",
+  color: "black",
+  borderRadius: 6,
+  border: "none",
+  outline: "none",
+  padding: "10px 10px",
+  fontSize: "20px",
+  marginBottom: "10px",
+};
+const inputTag = {
+  fontFamily: "Inika",
+  color: "#97DFFC",
+  textAlign: "left",
+  fontSize: "25px",
+  marginTop: "10px",
+  marginBottom: "10px",
+};
+const submitButton = {
+backgroundColor: "#4E148C",
+fontFamily: "Inika",
+fontSize: "20px",
+height: "40%",
+width: "20%",
+color: "#97DFFC",
+marginTop: "20px",
 
-    ":hover": {
-        backgroundColor: "#858AE3",
-        color: "black",
-    },
-    ":focus": {
-        outline: "none",
-    },
-    "@media screen and (max-width: 1100px)": {
-        fontSize: "12px",
-    },
+":hover": {
+    backgroundColor: "#858AE3",
+    color: "black",
+},
+":focus": {
+    outline: "none",
+},
+"@media screen and (max-width: 1100px)": {
+    fontSize: "12px",
+},
 };
 
 function Submit() {
@@ -118,25 +124,26 @@ function Submit() {
 
     try{
  state ?
-             await axios.put(`http://localhost:8000/api/posts/${state.id}`  , {
+            await axios.put(`http://localhost:8000/api/posts/${state.id}`  , {
             title, 
             desc:value,
             genre,
             img:file ? imgUrl : "", 
         }, {withCredentials: true}) 
         :    await axios.post(`http://localhost:8000/api/posts/` , {
-            title,
-            desc:value,
-            genre,
-            img:file ? imgUrl : "",
-            // date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
-    },{withCredentials: true})
-    } catch (err){
+          title,
+          desc:value,
+          genre,
+          img:file ? imgUrl : "",
+          
+        },{withCredentials: true})
+      } catch (err){
         console.log(err);
-    }
-
-
-
+      }
+      console.log(title);
+      
+      
+      
 }
 
   
@@ -171,7 +178,16 @@ function Submit() {
                     <Typography sx={inputTag}>
                         Select category
                     </Typography>
-                    <Dropdead />
+                    <Box>
+                    <input type='radio' checked={genre === "RelaxingFood"} name="genre" value="RelaxingFood" id="RelaxingFood"onChange={e=>setGenre(e.target.value)}  />
+                <label htmlFor='RelaxingFood'>RelaxingFood</label>
+                  <input type='radio' checked={genre === "Seafood"} name="genre" value="Seafood" id="Seafood"onChange={e=>setGenre(e.target.value)}  />
+                <label htmlFor='Seafood'>Seafood</label>
+                  <input type='radio' checked={genre === "ColdFood"} name="genre" value="ColdFood" id="ColdFood"onChange={e=>setGenre(e.target.value)}  />
+                <label htmlFor='ColdFood'>ColdFood</label>
+
+                    </Box>
+                
                     <Typography sx={inputTag}>
                         Recipe detail
                         <ReactQuill className='editor' theme="snow" value={value} onChange={setValue} />
